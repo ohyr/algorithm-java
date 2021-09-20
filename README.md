@@ -77,3 +77,8 @@
 8.	10757	큰 수 A+B
 9.	1011	Fly me to the Alpha Centauri
 
+## Class 별로 풀어보기!
+
+### CLASS 2 (class2)
+
+- Link: https://solved.ac/search?query=in_class:2
