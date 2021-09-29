@@ -82,3 +82,7 @@
 ### CLASS 2 (class2)
 
 - Link: https://solved.ac/search?query=in_class:2
+
+### CLASS 3 (class3)
+
+- Link: https://solved.ac/search?query=in_class:3
