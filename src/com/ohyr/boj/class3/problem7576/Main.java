@@ -1,0 +1,75 @@
+package com.ohyr.boj.class3.problem7576;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.util.LinkedList;
+import java.util.Queue;
+import java.util.StringTokenizer;
+
+public class Main {
+
+	public static void main(String[] args) throws Exception {
+		BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
+		StringTokenizer st = null;
+		
+		st = new StringTokenizer(in.readLine());
+		int m = Integer.parseInt(st.nextToken());
+		int n = Integer.parseInt(st.nextToken());
+		
+		int[][] tomato = new int[n][m];
+		for(int i=0;i<n;i++) {
+			st = new StringTokenizer(in.readLine());
+			for(int j=0;j<m;j++) {
+				tomato[i][j] = Integer.parseInt(st.nextToken());
+			}
+		}
+		
+		int greenTomatoNum = 0;
+		Queue<int[]> q = new LinkedList<>();
+		
+		for(int i=0;i<n;i++) {
+			for(int j=0;j<m;j++) {
+				if(tomato[i][j] == 0) {
+					greenTomatoNum++;
+				}else if(tomato[i][j] == 1) {
+					q.offer(new int[]{i, j, 1});
+				}
+			}
+		}
+		
+		int[][] deltas = {{1,0},{0,1},{-1,0},{0,-1}};
+		
+		int answer = 0;
+		
+		while(greenTomatoNum != 0) {
+			if(q.isEmpty()) {
+				answer = -1;
+				break;
+			}
+			
+			int[] redTomato = q.poll();
+			int day = redTomato[2];
+			
+			for(int d=0;d<4;d++) {
+				int new_n = redTomato[0] + deltas[d][0];
+				int new_m = redTomato[1] + deltas[d][1];
+				
+				if(new_n < 0 || n <= new_n || new_m < 0 || m <= new_m) continue;
+				
+				if(tomato[new_n][new_m] == 0) {
+					tomato[new_n][new_m] = 1;
+					q.offer(new int[] {new_n, new_m, day+1});
+					greenTomatoNum--;
+				}
+			}
+			
+			if(greenTomatoNum == 0) {
+				answer = day;
+				break;
+			}
+		}
+		
+		System.out.println(answer);
+	}
+
+}
