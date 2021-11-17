@@ -1,4 +1,4 @@
-package com.ohyr.boj.problem10026;
+package com.ohyr.boj.class3.problem10026;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
