@@ -86,3 +86,7 @@
 ### CLASS 3 (class3)
 
 - Link: https://solved.ac/search?query=in_class:3
+
+### CLASS 4 (class4)
+
+- Link: https://solved.ac/search?query=in_class:4
