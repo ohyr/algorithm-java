@@ -1,18 +1,28 @@
 package com.ohyr.boj.step7.problem01;
 
-import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.util.StringTokenizer;
 
 public class Main {
 
-	public static void main(String[] args) {
-		Scanner sc = new Scanner(System.in);
-		
-		String input = sc.next();
-		sc.close();
-		
-		int n = input.charAt(0);
-		
-		System.out.println(n);
+	public static void main(String[] args) throws Exception {
+		BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
+		StringTokenizer st = new StringTokenizer(in.readLine(), " ");
+
+		int a = Integer.parseInt(st.nextToken());
+		int b = Integer.parseInt(st.nextToken());
+		int c = Integer.parseInt(st.nextToken());
+
+		int bep = 0;
+
+		if (c <= b) {
+			bep = -1;
+		} else {
+			bep = a / (c - b) + 1;
+		}
+
+		System.out.println(bep);
 	}
 
 }

@@ -1,21 +1,23 @@
 package com.ohyr.boj.step7.problem02;
 
-import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 
 public class Main {
 
-	public static void main(String[] args) {
-		Scanner sc = new Scanner(System.in);
+	public static void main(String[] args) throws Exception {
+		BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
 		
-		int n = sc.nextInt();
-		String ns = sc.next();
-		sc.close();
+		int n = Integer.parseInt(in.readLine());
 		
-		int sum = 0;
-		for(int i=0;i<n;i++) {
-			sum += ns.charAt(i)-'0';
+		int sum = 1;
+		for(int i=0;i<=1000000000;i++) {
+			sum += 6*i;
+			if(sum >= n) {
+				System.out.println(i+1);
+				break;
+			}
 		}
-		System.out.println(sum);
 	}
 
 }

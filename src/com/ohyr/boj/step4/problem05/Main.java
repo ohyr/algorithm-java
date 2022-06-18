@@ -1,4 +1,4 @@
-package com.ohyr.boj.step4.problem01;
+package com.ohyr.boj.step4.problem05;
 
 import java.util.Scanner;
 
@@ -9,16 +9,22 @@ public class Main {
 		
 		int n = sc.nextInt();
 		
-		int min = 1000000;
-		int max = -1000000;
+		double[] scores = new double[n];
 		
+		int max = 0;
 		for(int i=0;i<n;i++) {
 			int k = sc.nextInt();
+			scores[i] = k;
 			max = Math.max(max, k);
-			min = Math.min(min, k);
 		}
 		
-		System.out.println(min + " " + max);
+		double sum = 0;
+		for(int i=0;i<n;i++) {
+			scores[i] = scores[i]/max*100;
+			sum += scores[i];
+		}
+		
+		System.out.println(sum/n);
 		sc.close();
 	}
 

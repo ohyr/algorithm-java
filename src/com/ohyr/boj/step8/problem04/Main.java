@@ -8,15 +8,28 @@ public class Main {
 
 	public static void main(String[] args) throws Exception {
 		BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
-		StringTokenizer st = new StringTokenizer(in.readLine());
+		StringBuilder sb = new StringBuilder();
+		StringTokenizer st = null;
 		
-		int a = Integer.parseInt(st.nextToken());
-		int b = Integer.parseInt(st.nextToken());
-		int v = Integer.parseInt(st.nextToken());
+		st = new StringTokenizer(in.readLine());
+		int m = Integer.parseInt(st.nextToken());
+		int n = Integer.parseInt(st.nextToken());
 		
-		double answer = Math.ceil((double)(v - a) / (a - b)) + 1;
+		int[] sosu = new int[1000001];
 		
-		System.out.println((int)answer);
+		for(int i=2;i<1000001;i++) {
+			for(int j=1;j*i<1000001;j++) {
+				sosu[j*i]++;
+			}
+		}
+		
+		for(int i=m;i<=n;i++) {
+			if(sosu[i] == 1) {
+				sb.append(i).append("\n");
+			}
+		}
+		
+		System.out.println(sb.toString());
 	}
 
 }

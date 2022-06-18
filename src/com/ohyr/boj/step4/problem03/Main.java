@@ -6,18 +6,24 @@ public class Main {
 
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
-		int n = sc.nextInt();
+		
+		int a = sc.nextInt();
+		int b = sc.nextInt();
+		int c = sc.nextInt();
 		sc.close();
 		
-		int answer = 0;
-		int cur = n;
-		do {
-			int a = cur/10;
-			int b = cur%10;
-			cur = b*10 + (a+b)%10;
-			answer++;
-		}while(cur != n);
-		System.out.println(answer);
+		int n = a*b*c;
+		
+		int[] used = new int[10];
+		
+		while(n > 0) {
+			used[n%10]++;
+			n /= 10;
+		}
+		
+		for(int i=0;i<10;i++) {
+			System.out.println(used[i]);
+		}
 	}
 
 }

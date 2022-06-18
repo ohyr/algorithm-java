@@ -1,27 +1,30 @@
 package com.ohyr.boj.step7.problem07;
 
-import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 
 public class Main {
 
-	public static void main(String[] args) {
-		Scanner sc = new Scanner(System.in);
+	public static void main(String[] args) throws Exception {
+		BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
 		
-		String A = sc.next();
-		String B = sc.next();
-		sc.close();
-		
-		StringBuffer sbA = new StringBuffer(A);
-		StringBuffer sbB = new StringBuffer(B);
-		
-		int a = Integer.parseInt(sbA.reverse().toString());
-		int b = Integer.parseInt(sbB.reverse().toString());
-		
-		if(a < b) {
-			a = b;
+		int[] dp = new int[5001];
+		for(int i=0;i<5001;i++) {
+			dp[i] = -1;
 		}
-		System.out.println(a);
 		
+		for(int i=0;i<1001;i++) {
+			int five = 5*i;
+			for(int j=0;j<1667;j++) {
+				int three = 3*j;
+				if(five+three > 5000) continue;
+				dp[five+three] = i+j;
+			}
+		}
+		
+		int n = Integer.parseInt(in.readLine());
+		
+		System.out.println(dp[n]);
 	}
 
 }

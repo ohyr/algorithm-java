@@ -7,24 +7,22 @@ public class Main {
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
 		
-		int n = sc.nextInt();
+		String s = sc.next();
 		sc.close();
 		
-		int answer = 0;
-		
-		for(int i=1;i<=n;i++) {
-			if(i < 100) {
-				answer++;
-			}else {
-				int a = i/100;
-				int b = i/10%10;
-				int c = i%10;
-				if((a-b) == (b-c)) {
-					answer++;
-				}
-			}
+		int[] alpha = new int[26];
+		for(int i=0;i<alpha.length;i++) {
+			alpha[i] = -1;
 		}
-		System.out.println(answer);
+		
+		for(int i=0;i<s.length();i++) {
+			if(alpha[s.charAt(i)-97] != -1) continue;
+			alpha[s.charAt(i)-97] = i;
+		}
+		
+		for(int i=0;i<alpha.length;i++) {
+			System.out.print(alpha[i] + " ");
+		}
 	}
 
 }

@@ -1,28 +1,22 @@
 package com.ohyr.boj.step7.problem04;
 
-import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.util.StringTokenizer;
 
 public class Main {
 
-	public static void main(String[] args) {
-		Scanner sc = new Scanner(System.in);
+	public static void main(String[] args) throws Exception {
+		BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
+		StringTokenizer st = new StringTokenizer(in.readLine());
 		
-		int T = sc.nextInt();
+		int a = Integer.parseInt(st.nextToken());
+		int b = Integer.parseInt(st.nextToken());
+		int v = Integer.parseInt(st.nextToken());
 		
-		for(int tc=1;tc<=T;tc++) {
-			int r = sc.nextInt();
-			String s = sc.next();
-			
-			String p = "";
-			
-			for(int i=0;i<s.length();i++) {
-				for(int j=0;j<r;j++) {
-					p += (s.charAt(i));
-				}
-			}
-			System.out.println(p);
-		}
-		sc.close();
+		double answer = Math.ceil((double)(v - a) / (a - b)) + 1;
+		
+		System.out.println((int)answer);
 	}
 
 }
