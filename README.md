@@ -80,7 +80,7 @@
 6. 2775 부녀회장이 될테야
 7. 2839 설탕 배달
 8. 10757 큰 수 A+B
-   ~~9. 1011 Fly me to the Alpha Centauri~~
+9. ~~1011 Fly me to the Alpha Centauri~~
 
 ### 8단계 기본 수학 2 (step8)
 
