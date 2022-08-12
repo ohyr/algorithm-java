@@ -247,6 +247,10 @@
 
 - Link: https://solved.ac/search?query=in_class:4
 
+### CLASS 5 (class5)
+
+- Link: https://solved.ac/search?query=in_class:5
+
 ### 삼성 SW 역량 테스트 기출 문제 (samsung)
 
 - Link: https://www.acmicpc.net/workbook/view/1152
