@@ -251,6 +251,10 @@
 
 - Link: https://solved.ac/search?query=in_class:5
 
-### 삼성 SW 역량 테스트 기출 문제 (samsung)
+## 삼성 SW 역량 테스트 기출 문제 (samsung)
 
 - Link: https://www.acmicpc.net/workbook/view/1152
+
+## KAKAO BLIND RECRUITMENT (com.ohyr.kakao)
+
+- Link: https://school.programmers.co.kr/learn/challenges?page=1&partIds=9317%2C12286%2C17214%2C20069%2C25448%2C31236
