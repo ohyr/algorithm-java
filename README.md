@@ -255,6 +255,6 @@
 
 - Link: https://www.acmicpc.net/workbook/view/1152
 
-## KAKAO BLIND RECRUITMENT (com.ohyr.kakao)
+## KAKAO BLIND RECRUITMENT (com.ohyr.kakao2018~2022)
 
-- Link: https://school.programmers.co.kr/learn/challenges?page=1&partIds=9317%2C12286%2C17214%2C20069%2C25448%2C31236
+- Link: https://school.programmers.co.kr/learn/challenges?page=1&partIds=9317%2C12286%2C17214%2C20069%2C25448
