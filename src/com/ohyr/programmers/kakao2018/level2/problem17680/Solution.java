@@ -1,4 +1,4 @@
-package com.ohyr.boj.kakao2018.level2.problem17680;
+package com.ohyr.programmers.kakao2018.level2.problem17680;
 
 import java.util.*;
 
