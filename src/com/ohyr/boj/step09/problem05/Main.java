@@ -5,32 +5,47 @@ import java.io.InputStreamReader;
 
 public class Main {
 
-	public static StringBuilder sb;
-	
 	public static void main(String[] args) throws Exception {
 		BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
+		StringBuilder sb = new StringBuilder();
+		
 		int n = Integer.parseInt(in.readLine());
 		
-		sb = new StringBuilder();
+		int[][] stars = new int[n][n];
 		
-		sb.append((1<<n) - 1).append("\n");
+		checkStars(0, 0, n, stars);
 		
-		hanoi(n, 1, 2, 3);
+		for(int i=0;i<n;i++) {
+			for(int j=0;j<n;j++) {
+				if(stars[i][j] == 0) {
+					sb.append("*");
+				}else {
+					sb.append(" ");
+				}
+			}
+			sb.append("\n");
+		}
 		
 		System.out.println(sb.toString());
 	}
 	
-	private static void hanoi(int n, int a, int b, int c) {
+	private static void checkStars(int x, int y, int n, int[][] stars) {
 		if(n == 1) {
-			sb.append(a).append(" ").append(c).append("\n");
 			return;
 		}
 		
-		hanoi(n - 1, a, c, b);
+		for(int i=x+n/3;i<x+2*n/3;i++) {
+			for(int j=y+n/3;j<y+2*n/3;j++) {
+				stars[i][j] = 1;
+			}
+		}
 		
-		sb.append(a).append(" ").append(c).append("\n");
-		
-		hanoi(n - 1, b, a, c);
+		for(int i=0;i<3;i++) {
+			for(int j=0;j<3;j++) {
+				if(i == 1 && j == 1) continue;
+				checkStars(x + i*n/3, y + j*n/3, n/3, stars);
+			}
+		}
 	}
 
 }
