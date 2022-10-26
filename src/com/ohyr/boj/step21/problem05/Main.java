@@ -2,54 +2,63 @@ package com.ohyr.boj.step21.problem05;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.util.ArrayDeque;
 import java.util.StringTokenizer;
 
 public class Main {
 
-	public final static long MOD = 1_000_000_007;
-	
 	public static void main(String[] args) throws Exception {
 		BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
-		StringTokenizer st = new StringTokenizer(in.readLine());
+		StringBuilder sb = new StringBuilder();
+		StringTokenizer st = null;
 		
-		int n = Integer.parseInt(st.nextToken());
-		int k = Integer.parseInt(st.nextToken());
+		ArrayDeque<Integer> dq = new ArrayDeque<>();
 		
-		System.out.println(nCk(n, k));
-	}
-
-	private static long nCk(int n, int k) {
-		long rst = 0;
+		int n = Integer.parseInt(in.readLine());
 		
-		long a = factorial(n);
-		long b = factorial(k) * factorial(n-k) % MOD;
-		
-		rst = a * pow(b, MOD-2) % MOD;
-		
-		return rst;
-	}
-
-	private static long pow(long a, long b) {
-		long rst = 1L;
-		
-		while(b > 0) {
-			if(b%2 == 1) {
-				rst = (rst * a) % MOD;
+		for(int i=0;i<n;i++) {
+			st = new StringTokenizer(in.readLine());
+			String command = st.nextToken();
+			if("push_front".equals(command)) {
+				dq.offerFirst(Integer.parseInt(st.nextToken()));
+			}else if("push_back".equals(command)) {
+				dq.offerLast(Integer.parseInt(st.nextToken()));
+			}else if("pop_front".equals(command)) {
+				if(dq.isEmpty()) {
+					sb.append("-1").append("\n");
+					continue;
+				}
+				sb.append(dq.pollFirst()).append("\n");
+			}else if("pop_back".equals(command)) {
+				if(dq.isEmpty()) {
+					sb.append("-1").append("\n");
+					continue;
+				}
+				sb.append(dq.pollLast()).append("\n");
+			}else if("size".equals(command)) {
+				sb.append(dq.size()).append("\n");
+			}else if("empty".equals(command)) {
+				if(dq.isEmpty()) {
+					sb.append("1").append("\n");
+				}else {
+					sb.append("0").append("\n");
+				}
+			}else if("front".equals(command)) {
+				if(dq.isEmpty()) {
+					sb.append("-1").append("\n");
+					continue;
+				}
+				sb.append(dq.peekFirst()).append("\n");
+			}else if("back".equals(command)) {
+				if(dq.isEmpty()) {
+					sb.append("-1").append("\n");
+					continue;
+				}
+				sb.append(dq.peekLast()).append("\n");
 			}
-			a = (a * a) % MOD;
-			b /= 2;
 		}
 		
-		return rst;
-	}
-
-	private static long factorial(long n) {
-		long rst = 1L;
-		while(n > 1) {
-			rst = (rst * n) % MOD;
-			n--;
-		}
-		return rst;
+		System.out.println(sb.toString());
 	}
 
 }

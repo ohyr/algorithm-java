@@ -2,26 +2,67 @@ package com.ohyr.boj.step16.problem08;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.util.StringTokenizer;
 
 public class Main {
 
+	public static int[] idx;
+	public static int Min;
+	
 	public static void main(String[] args) throws Exception {
 		BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
+		StringTokenizer st = null;
 		
 		int n = Integer.parseInt(in.readLine());
-		int[] steps = new int[n];
+		
+		int[][] s = new int[n][n];
 		for(int i=0;i<n;i++) {
-			steps[i] = Integer.parseInt(in.readLine());
+			st = new StringTokenizer(in.readLine());
+			for(int j=0;j<n;j++) {
+				s[i][j] = Integer.parseInt(st.nextToken());
+			}
 		}
 		
-		int[][] dp = new int[n+2][2];
+		idx = new int[n/2];
+		Min = Integer.MAX_VALUE;
+		comb(0, 0, n, s);
+		
+		System.out.println(Min);
+	}
 
-		for(int i=2;i<n+2;i++) {
-			dp[i][0] = steps[i-2] + Math.max(dp[i-2][0], dp[i-2][1]);
-			dp[i][1] = steps[i-2] + dp[i-1][0];
+	private static void comb(int cnt, int start, int n, int[][] s) {
+		if(cnt == n/2) {
+			boolean[] isStartTeam = new boolean[n];
+			for(int i=0;i<n/2;i++) {
+				isStartTeam[idx[i]] = true;
+			}
+			
+			int[] link = new int[n/2];
+			int linkIdx = 0;
+			for(int i=0;i<n;i++) {
+				if(!isStartTeam[i]) {
+					link[linkIdx++] = i;
+				}
+			}
+			
+			int startTeam = 0;
+			int linkTeam = 0;
+			
+			for(int i=0;i<n/2;i++) {
+				for(int j=0;j<n/2;j++) {
+					startTeam += s[idx[i]][idx[j]];
+					linkTeam += s[link[i]][link[j]];
+				}
+			}
+			
+			Min = Math.min(Min, Math.abs(startTeam - linkTeam));
+			
+			return;
 		}
-		
-		System.out.println(Math.max(dp[n+1][0], dp[n+1][1]));
-	}	
+		for(int i=start;i<n;i++) {
+			idx[cnt] = i;
+			comb(cnt+1, i+1, n, s);
+		}
+	}
 
 }

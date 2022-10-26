@@ -1,34 +1,31 @@
 package com.ohyr.boj.step07.problem06;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
+import java.util.Scanner;
 
 public class Main {
 
-	public static void main(String[] args) throws Exception {
-		BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
 		
-		int[][] apart = new int[15][15];	
+		String s = sc.nextLine();
+		sc.close();
 		
-		for(int i=1;i<=14;i++) {
-			apart[0][i] = i;
-		}
+		s = s.trim();
+
+		int cnt = 0;
+		boolean once = true;
 		
-		for(int i=1;i<=14;i++) {
-			apart[i][1] = apart[i-1][1];
-			for(int j=1;j<=14;j++) {
-				apart[i][j] = apart[i][j-1] + apart[i-1][j];
+		for(int i=0;i<s.length();i++) {
+			if(s.charAt(i) == ' ') {
+				once = true;
+			}else {
+				if(once) {
+					cnt++;
+					once = false;
+				}
 			}
 		}
-		
-		int T = Integer.parseInt(in.readLine());
-		
-		for(int tc=1;tc<=T;tc++) {
-			int k = Integer.parseInt(in.readLine());
-			int n = Integer.parseInt(in.readLine());
-			
-			System.out.println(apart[k][n]);
-		}
+		System.out.println(cnt);
 	}
 
 }

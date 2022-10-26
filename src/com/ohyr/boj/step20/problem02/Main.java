@@ -2,34 +2,33 @@ package com.ohyr.boj.step20.problem02;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.util.LinkedList;
-import java.util.Queue;
+import java.util.Stack;
 
 public class Main {
 
 	public static void main(String[] args) throws Exception {
 		BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
 		
-		int n = Integer.parseInt(in.readLine());
+		int answer = 0;
 		
-		Queue<Integer> q = new LinkedList<>();
+		Stack<Integer> stk = new Stack<>();
 		
-		for(int i=1;i<=n;i++) {
-			q.offer(i);
-		}
-		
-		int r = 0;
-		while(q.size() > 1){
-			int tmp = q.poll();
+		int k = Integer.parseInt(in.readLine());
+		for(int i=0;i<k;i++) {
+			int cur = Integer.parseInt(in.readLine());
 			
-			if(r%2 == 1) {
-				q.offer(tmp);
+			if(cur == 0) {
+				stk.pop();
+			}else {
+				stk.add(cur);
 			}
-
-			r++;
 		}
 		
-		System.out.println(q.poll());
+		while(!stk.isEmpty()) {
+			answer += stk.pop();
+		}
+		
+		System.out.println(answer);
 	}
 
 }

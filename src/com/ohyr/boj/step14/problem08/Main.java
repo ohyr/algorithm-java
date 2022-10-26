@@ -11,22 +11,31 @@ public class Main {
 		StringTokenizer st = null;
 		
 		st = new StringTokenizer(in.readLine());
-		int n = Integer.parseInt(st.nextToken());
-		int k = Integer.parseInt(st.nextToken());
+		int w = Integer.parseInt(st.nextToken());
+		int h = Integer.parseInt(st.nextToken());
+		int x = Integer.parseInt(st.nextToken());
+		int y = Integer.parseInt(st.nextToken());
+		int p = Integer.parseInt(st.nextToken());
 		
-		int[][] pas = new int[n+1][n+1];
-		pas[0][0] = 1;
-		for(int i=1;i<=n;i++) {
-			for(int j=0;j<i+1;j++) {
-				int cur = pas[i-1][j];
-				if(j-1 >= 0) {
-					cur = (cur + pas[i-1][j-1]) % 10007;
-				}
-				pas[i][j] = cur;
+		int answer = 0;
+		
+		for(int i=0;i<p;i++) {
+			st = new StringTokenizer(in.readLine());
+			int px = Integer.parseInt(st.nextToken());
+			int py = Integer.parseInt(st.nextToken());
+			
+			if(x <= px && px <= x+w && y <= py && py <= y+h) {
+				answer++;
+			}else {
+				int dist1 = (px - x)*(px - x) + (py-y-(h/2))*(py-y-(h/2));
+				int dist2 = (px - x - w)*(px - x - w) + (py-y-(h/2))*(py-y-(h/2));
+				if(dist1 > (h/2)*(h/2) && dist2 > (h/2)*(h/2)) continue;
+
+				answer++;
 			}
 		}
 		
-		System.out.println(pas[n][k]);
+		System.out.println(answer);
 	}
 
 }

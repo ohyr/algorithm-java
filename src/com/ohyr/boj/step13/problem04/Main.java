@@ -8,61 +8,26 @@ public class Main {
 
 	public static void main(String[] args) throws Exception {
 		BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
+		StringBuilder sb = new StringBuilder();
 		StringTokenizer st = null;
 		
-		int k = Integer.parseInt(in.readLine());
+		int[] checked = new int[20_000_001];
 		
-		int[][] input = new int[6][2];
-		int[][] lenMap = new int[5][4];
-		
-		for(int i=0;i<6;i++) {
-			st = new StringTokenizer(in.readLine());
-			int direction = Integer.parseInt(st.nextToken());
-			int len = Integer.parseInt(st.nextToken());
-			
-			input[i] = new int[] {direction,len};
-			
-			if(lenMap[direction][0] == 0) {
-				lenMap[direction][0] = len;
-				lenMap[direction][2] = i;
-			}else {
-				lenMap[direction][1] = len;
-				lenMap[direction][3] = i;
-			}
+		int n = Integer.parseInt(in.readLine());
+		st = new StringTokenizer(in.readLine());
+		for(int i=0;i<n;i++) {
+			int cur = Integer.parseInt(st.nextToken()) + 10_000_000;
+			checked[cur] += 1;
 		}
 		
-		int big = 1;
-		int small = 1;
-
-		int[] wh = new int[2];
-		int whIdx = 0;
-		
-		for(int i=1;i<=4;i++) {
-			if(lenMap[i][1] == 0) {
-				big *= lenMap[i][0];
-				wh[whIdx++] = i;
-			}
+		int m = Integer.parseInt(in.readLine());
+		st = new StringTokenizer(in.readLine());
+		for(int i=0;i<m;i++) {
+			int cur = Integer.parseInt(st.nextToken()) + 10_000_000;
+			sb.append(checked[cur]).append(" ");
 		}
 		
-		if(wh[0] == 1 && wh[1] == 4) {
-			int wIdx = (lenMap[4][2] + 2)%6;
-			int hIdx = (lenMap[4][2] + 3)%6;
-			small = input[wIdx][1] * input[hIdx][1];
-		}else if(wh[0] == 2 && wh[1] == 3) {
-			int wIdx = (lenMap[3][2] + 2)%6;
-			int hIdx = (lenMap[3][2] + 3)%6;
-			small = input[wIdx][1] * input[hIdx][1];
-		}else if(wh[0] == 2 && wh[1] == 4) {
-			int wIdx = (lenMap[2][2] + 2)%6;
-			int hIdx = (lenMap[2][2] + 3)%6;
-			small = input[wIdx][1] * input[hIdx][1];
-		}else if(wh[0] == 1 && wh[1] == 3) {
-			int wIdx = (lenMap[1][2] + 2)%6;
-			int hIdx = (lenMap[1][2] + 3)%6;
-			small = input[wIdx][1] * input[hIdx][1];
-		}
-		
-		System.out.println((big-small)*k);
+		System.out.println(sb.toString());
 	}
 
 }

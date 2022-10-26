@@ -2,6 +2,7 @@ package com.ohyr.boj.step09.problem05;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.util.Arrays;
 
 public class Main {
 
@@ -9,43 +10,29 @@ public class Main {
 		BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
 		StringBuilder sb = new StringBuilder();
 		
-		int n = Integer.parseInt(in.readLine());
-		
-		int[][] stars = new int[n][n];
-		
-		checkStars(0, 0, n, stars);
-		
-		for(int i=0;i<n;i++) {
-			for(int j=0;j<n;j++) {
-				if(stars[i][j] == 0) {
-					sb.append("*");
-				}else {
-					sb.append(" ");
-				}
+		boolean[] isPrime = new boolean[246913];
+		Arrays.fill(isPrime, true);
+		for(int i=2;i<=123456;i++) {
+			if(!isPrime[i]) continue;
+			for(int j=2;i*j<=246912;j++) {
+				isPrime[i*j] = false;
 			}
-			sb.append("\n");
+		}
+		
+		while(true) {
+			int n = Integer.parseInt(in.readLine());
+			if(n == 0) {
+				break;
+			}
+			
+			int sum = 0;
+			for(int i=n+1;i<=2*n;i++) {
+				if(isPrime[i]) sum++;
+			}
+			sb.append(sum).append("\n");
 		}
 		
 		System.out.println(sb.toString());
-	}
-	
-	private static void checkStars(int x, int y, int n, int[][] stars) {
-		if(n == 1) {
-			return;
-		}
-		
-		for(int i=x+n/3;i<x+2*n/3;i++) {
-			for(int j=y+n/3;j<y+2*n/3;j++) {
-				stars[i][j] = 1;
-			}
-		}
-		
-		for(int i=0;i<3;i++) {
-			for(int j=0;j<3;j++) {
-				if(i == 1 && j == 1) continue;
-				checkStars(x + i*n/3, y + j*n/3, n/3, stars);
-			}
-		}
 	}
 
 }

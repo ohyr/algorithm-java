@@ -2,41 +2,41 @@ package com.ohyr.boj.step20.problem06;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.util.LinkedList;
-import java.util.Queue;
+import java.util.Stack;
 import java.util.StringTokenizer;
 
 public class Main {
 
 	public static void main(String[] args) throws Exception {
 		BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
+		StringBuilder sb = new StringBuilder();
 		StringTokenizer st = null;
 		
+		int n = Integer.parseInt(in.readLine());
+		int[] a = new int[n];
 		st = new StringTokenizer(in.readLine());
-		int n = Integer.parseInt(st.nextToken());
-		int m = Integer.parseInt(st.nextToken());
-		
-		Queue<Integer> q = new LinkedList<>();
-		for(int i=1;i<=n;i++) {
-			q.offer(i);
+		for(int i=0;i<n;i++) {
+			a[i] = Integer.parseInt(st.nextToken());
 		}
 		
-		int answer = 0;
+		Stack<Integer> stk = new Stack<>();
 		
-		st = new StringTokenizer(in.readLine());
-		for(int i=0;i<m;i++) {
-			int cur = Integer.parseInt(st.nextToken());
-			int cnt = 0;
-			while(q.peek() != cur) {
-				q.offer(q.poll());
-				cnt++;
+		int[] NGE = new int[n];
+		for(int i=n-1;i>=0;i--) {
+			while(!stk.isEmpty()) {
+				if(stk.peek() > a[i]) {
+					break;
+				}
+				stk.pop();
 			}
-			answer += Math.min(cnt, n - cnt);
-			q.poll();
-			n--;
+			NGE[i] = stk.isEmpty() ? -1 : stk.peek();
+			stk.push(a[i]);
 		}
 		
-		System.out.println(answer);
+		for(int i=0;i<n;i++) {
+			sb.append(NGE[i]).append(" ");
+		}
+		System.out.println(sb.toString());
 	}
 
 }

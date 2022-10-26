@@ -2,34 +2,28 @@ package com.ohyr.boj.step17.problem04;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.util.StringTokenizer;
 
 public class Main {
 
 	public static void main(String[] args) throws Exception {
 		BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
-		StringTokenizer st = null;
+		StringBuilder sb = new StringBuilder();
 		
-		st = new StringTokenizer(in.readLine());
-		int n = Integer.parseInt(st.nextToken());
-		int m = Integer.parseInt(st.nextToken());
-		
-		int[] dp = new int[n+1];
-		st = new StringTokenizer(in.readLine());
-		for(int i=1;i<=n;i++) {
-			dp[i] = (dp[i-1] + Integer.parseInt(st.nextToken())) % m;
+		long[] P = new long[101];
+		P[1] = 1;
+		P[2] = 1;
+		P[3] = 1;
+		P[4] = 2;
+		for(int i=5;i<101;i++) {
+			P[i] = P[i-1] + P[i-5];
 		}
 		
-		int[] count = new int[m];
-		for(int i=0;i<=n;i++) {
-			count[dp[i]]++;
+		int T = Integer.parseInt(in.readLine());
+		while(T-->0) {
+			int N = Integer.parseInt(in.readLine());
+			sb.append(P[N]).append("\n");
 		}
-		
-		long answer = 0;
-		for(int i=0;i<m;i++) {
-			answer += (long) count[i] * (count[i] - 1) / 2;
-		}
-		System.out.println(answer);
+		System.out.println(sb.toString());
 	}
 
 }

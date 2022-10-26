@@ -8,30 +8,22 @@ public class Main {
 
 	public static void main(String[] args) throws Exception {
 		BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
-		StringBuilder sb = new StringBuilder();
 		StringTokenizer st = null;
 		
-		while(true) {
-			st = new StringTokenizer(in.readLine());
-			int a = Integer.parseInt(st.nextToken());
-			int b = Integer.parseInt(st.nextToken());
-			
-			if(a == 0 && b == 0) {
-				break;
-			}
-			
-			String ans = "neither";
-			
-			if(b % a == 0) {
-				ans = "factor";
-			}else if(a % b == 0) {
-				ans = "multiple";
-			}
-			
-			sb.append(ans).append("\n");
-		}
+		st = new StringTokenizer(in.readLine());
+		int x = Integer.parseInt(st.nextToken());
+		int y = Integer.parseInt(st.nextToken());
+		int w = Integer.parseInt(st.nextToken());
+		int h = Integer.parseInt(st.nextToken());
 		
-		System.out.println(sb.toString());
+		int answer = Integer.MAX_VALUE;
+		
+		answer = Math.min(answer, x);
+		answer = Math.min(answer, y);
+		answer = Math.min(answer, w-x);
+		answer = Math.min(answer, h-y);
+		
+		System.out.println(answer);
 	}
 
 }

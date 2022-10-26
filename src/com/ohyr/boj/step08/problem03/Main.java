@@ -7,20 +7,26 @@ public class Main {
 
 	public static void main(String[] args) throws Exception {
 		BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
-		StringBuilder sb = new StringBuilder();
 		
 		int n = Integer.parseInt(in.readLine());
-		int k = 2;
-		while(n > 1) {
-			if(n % k == 0) {
-				sb.append(k).append("\n");
-				n /= k;
-			} else {
-				k++;
+		
+		int a = 0;
+		int b = 0;
+		int sum = 0;
+		for(int i=1;i<=n;i++) {
+			sum += i;
+			if(sum >= n) {
+				if(i%2 == 0) {
+					a = i - (sum-n);
+					b = sum - n + 1;
+				}else {
+					a = sum - n + 1;
+					b = i - (sum-n);
+				}
+				break;
 			}
 		}
-		
-		System.out.println(sb.toString());
+		System.out.println(a+"/"+b);
 	}
 
 }

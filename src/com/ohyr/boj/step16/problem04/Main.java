@@ -2,28 +2,41 @@ package com.ohyr.boj.step16.problem04;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.util.StringTokenizer;
 
 public class Main {
 
+	public static StringBuilder sb;
+	public static int[] idx;
+	
 	public static void main(String[] args) throws Exception {
 		BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
-		StringBuilder sb = new StringBuilder();
+		StringTokenizer st = null;
 		
-		long[] P = new long[101];
-		P[1] = 1;
-		P[2] = 1;
-		P[3] = 1;
-		P[4] = 2;
-		for(int i=5;i<101;i++) {
-			P[i] = P[i-1] + P[i-5];
-		}
+		st = new StringTokenizer(in.readLine());
+		int n = Integer.parseInt(st.nextToken());
+		int m = Integer.parseInt(st.nextToken());
 		
-		int T = Integer.parseInt(in.readLine());
-		while(T-->0) {
-			int N = Integer.parseInt(in.readLine());
-			sb.append(P[N]).append("\n");
-		}
+		sb = new StringBuilder();
+		
+		idx = new int[m];
+		perm(0, 0, n, m);
+		
 		System.out.println(sb.toString());
+	}
+
+	private static void perm(int cnt, int start, int n, int m) {
+		if(cnt == m) {
+			for(int i=0;i<m;i++) {
+				sb.append(idx[i]).append(" ");
+			}
+			sb.append("\n");
+			return;
+		}
+		for(int i=start;i<n;i++) {
+			idx[cnt] = i+1;
+			perm(cnt+1, i, n, m);
+		}
 	}
 
 }

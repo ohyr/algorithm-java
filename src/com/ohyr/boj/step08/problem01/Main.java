@@ -8,32 +8,21 @@ public class Main {
 
 	public static void main(String[] args) throws Exception {
 		BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
-		StringTokenizer st = null;
-		
-		boolean[] notPrime = new boolean[1001];
-		
-		notPrime[1] = true;
-		
-		for(int i=2;i<1001;i++) {
-			for(int j=i;i*j<1001;j++) {
-				notPrime[i*j] = true;
-			}
+		StringTokenizer st = new StringTokenizer(in.readLine(), " ");
+
+		int a = Integer.parseInt(st.nextToken());
+		int b = Integer.parseInt(st.nextToken());
+		int c = Integer.parseInt(st.nextToken());
+
+		int bep = 0;
+
+		if (c <= b) {
+			bep = -1;
+		} else {
+			bep = a / (c - b) + 1;
 		}
-		
-		int n = Integer.parseInt(in.readLine());
-		
-		int answer = 0;
-		
-		st = new StringTokenizer(in.readLine());
-		for(int i=0;i<n;i++) {
-			int num = Integer.parseInt(st.nextToken());
-			
-			if(notPrime[num]) continue;
-			
-			answer++;
-		}
-		
-		System.out.println(answer);
+
+		System.out.println(bep);
 	}
 
 }

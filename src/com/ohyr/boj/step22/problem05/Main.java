@@ -2,54 +2,54 @@ package com.ohyr.boj.step22.problem05;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.util.Arrays;
 import java.util.StringTokenizer;
 
 public class Main {
 
+	public final static long MOD = 1_000_000_007;
+	
 	public static void main(String[] args) throws Exception {
 		BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
-		StringTokenizer st = null;
+		StringTokenizer st = new StringTokenizer(in.readLine());
 		
-		st = new StringTokenizer(in.readLine());
 		int n = Integer.parseInt(st.nextToken());
-		int c = Integer.parseInt(st.nextToken());
+		int k = Integer.parseInt(st.nextToken());
 		
-		int[] x = new int[n];
-		for(int i=0;i<n;i++) {
-			x[i] = Integer.parseInt(in.readLine());
-		}
-		Arrays.sort(x);
-		
-		int l = 1;
-		int r = x[n-1] - x[0] + 1;
-		while(l < r) {
-			int mid = (l + r) / 2;
-			
-			if(simul(mid, x) < c) {
-				r = mid;
-			}else {
-				l = mid + 1;
-			}
-		}
-		
-		System.out.println(r - 1);
+		System.out.println(nCk(n, k));
 	}
-	
-	public static int simul(int dis, int[] x) {
-		int cnt = 1;
+
+	private static long nCk(int n, int k) {
+		long rst = 0;
 		
-		int prev = x[0];
-		for(int i=1;i<x.length;i++) {
-			int cur = x[i];
-			
-			if(cur - prev >= dis) {
-				cnt++;
-				prev = cur;
+		long a = factorial(n);
+		long b = factorial(k) * factorial(n-k) % MOD;
+		
+		rst = a * pow(b, MOD-2) % MOD;
+		
+		return rst;
+	}
+
+	private static long pow(long a, long b) {
+		long rst = 1L;
+		
+		while(b > 0) {
+			if(b%2 == 1) {
+				rst = (rst * a) % MOD;
 			}
+			a = (a * a) % MOD;
+			b /= 2;
 		}
 		
-		return cnt;
+		return rst;
+	}
+
+	private static long factorial(long n) {
+		long rst = 1L;
+		while(n > 1) {
+			rst = (rst * n) % MOD;
+			n--;
+		}
+		return rst;
 	}
 
 }

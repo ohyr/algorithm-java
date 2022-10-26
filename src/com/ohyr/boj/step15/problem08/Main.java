@@ -6,63 +6,27 @@ import java.util.StringTokenizer;
 
 public class Main {
 
-	public static int[] idx;
-	public static int Min;
-	
 	public static void main(String[] args) throws Exception {
 		BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
 		StringTokenizer st = null;
 		
-		int n = Integer.parseInt(in.readLine());
+		st = new StringTokenizer(in.readLine());
+		int n = Integer.parseInt(st.nextToken());
+		int k = Integer.parseInt(st.nextToken());
 		
-		int[][] s = new int[n][n];
-		for(int i=0;i<n;i++) {
-			st = new StringTokenizer(in.readLine());
-			for(int j=0;j<n;j++) {
-				s[i][j] = Integer.parseInt(st.nextToken());
-			}
-		}
-		
-		idx = new int[n/2];
-		Min = Integer.MAX_VALUE;
-		comb(0, 0, n, s);
-		
-		System.out.println(Min);
-	}
-
-	private static void comb(int cnt, int start, int n, int[][] s) {
-		if(cnt == n/2) {
-			boolean[] isStartTeam = new boolean[n];
-			for(int i=0;i<n/2;i++) {
-				isStartTeam[idx[i]] = true;
-			}
-			
-			int[] link = new int[n/2];
-			int linkIdx = 0;
-			for(int i=0;i<n;i++) {
-				if(!isStartTeam[i]) {
-					link[linkIdx++] = i;
+		int[][] pas = new int[n+1][n+1];
+		pas[0][0] = 1;
+		for(int i=1;i<=n;i++) {
+			for(int j=0;j<i+1;j++) {
+				int cur = pas[i-1][j];
+				if(j-1 >= 0) {
+					cur = (cur + pas[i-1][j-1]) % 10007;
 				}
+				pas[i][j] = cur;
 			}
-			
-			int startTeam = 0;
-			int linkTeam = 0;
-			
-			for(int i=0;i<n/2;i++) {
-				for(int j=0;j<n/2;j++) {
-					startTeam += s[idx[i]][idx[j]];
-					linkTeam += s[link[i]][link[j]];
-				}
-			}
-			
-			Min = Math.min(Min, Math.abs(startTeam - linkTeam));
-			
-			return;
 		}
-		for(int i=start;i<n;i++) {
-			idx[cnt] = i;
-			comb(cnt+1, i+1, n, s);
-		}
+		
+		System.out.println(pas[n][k]);
 	}
 
 }

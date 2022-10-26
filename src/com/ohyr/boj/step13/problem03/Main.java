@@ -2,7 +2,8 @@ package com.ohyr.boj.step13.problem03;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.StringTokenizer;
 
 public class Main {
@@ -12,23 +13,31 @@ public class Main {
 		StringBuilder sb = new StringBuilder();
 		StringTokenizer st = null;
 		
-		while(true) {
-			int[] tri = new int[3];
+		st = new StringTokenizer(in.readLine());
+		int n = Integer.parseInt(st.nextToken());
+		int m = Integer.parseInt(st.nextToken());
+		
+		Map<String, String> pokemon = new HashMap<String,String>();
+		Map<String, String> pokemonIndex = new HashMap<String,String>();
+		
+		for(int i=1;i<=n;i++) {
+			String pokemonName = in.readLine();
+			pokemon.put(Integer.toString(i), pokemonName);
+			pokemonIndex.put(pokemonName, Integer.toString(i));
+		}
+		
+		for(int i=0;i<m;i++) {
+			String search = in.readLine();
 			
-			st = new StringTokenizer(in.readLine());
-			tri[0] = Integer.parseInt(st.nextToken());
-			tri[1] = Integer.parseInt(st.nextToken());
-			tri[2] = Integer.parseInt(st.nextToken());
+			String result = "";
 			
-			if(tri[0] + tri[1] + tri[2] == 0) break;
-			
-			Arrays.sort(tri);
-			
-			if(tri[0]*tri[0] + tri[1]*tri[1] == tri[2]*tri[2]) {
-				sb.append("right\n");
+			if(65 <= search.charAt(0) && search.charAt(0) < 91) {
+				result = pokemonIndex.get(search);
 			}else {
-				sb.append("wrong\n");
+				result = pokemon.get(search);
 			}
+			
+			sb.append(result).append("\n");
 		}
 		
 		System.out.println(sb.toString());

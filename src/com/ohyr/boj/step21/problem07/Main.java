@@ -11,60 +11,64 @@ public class Main {
 		StringBuilder sb = new StringBuilder();
 		StringTokenizer st = null;
 		
-		st = new StringTokenizer(in.readLine());
-		int n = Integer.parseInt(st.nextToken());
-		long b = Long.parseLong(st.nextToken());
+		int T = Integer.parseInt(in.readLine());
 		
-		int[][] m = new int[n][n];
-		for(int i=0;i<n;i++) {
-			st = new StringTokenizer(in.readLine());
-			for(int j=0;j<n;j++) {
-				m[i][j] = Integer.parseInt(st.nextToken()) % 1000;
+		for(int tc=1;tc<=T;tc++) {
+			char[] p = in.readLine().toCharArray();
+			int n = Integer.parseInt(in.readLine());
+			int arr[] = new int[n];
+			String str = in.readLine();
+			st = new StringTokenizer(str.substring(1,str.length()-1),",");
+			for(int i=0;i<n;i++) {
+				arr[i] = Integer.parseInt(st.nextToken());
 			}
-		}
-		
-		int[][] answer = matrix(n, b, m);
-		for(int i=0;i<n;i++) {
-			for(int j=0;j<n;j++) {
-				sb.append(answer[i][j]).append(" ");
-			}
-			sb.append("\n");
-		}
-		
-		System.out.println(sb.toString());
-	}
-
-	private static int[][] matrix(int n, long b, int[][] m) {
-		int[][] rst = new int[n][n];
-		for(int i=0;i<n;i++) {
-			rst[i][i] = 1;
-		}
-		
-		while(b > 0) {
-			if(b%2 == 1) {
-				rst = mul(rst, m);
-			}
-			b /= 2;
-			m = mul(m, m);
-		}
-		
-		return rst;
-	}
-
-	private static int[][] mul(int[][] a, int[][] b) {
-		int n = a.length;
-		int[][] rst = new int[n][n];
-		
-		for(int i=0;i<n;i++) {
-			for(int j=0;j<n;j++) {
-				for(int k=0;k<n;k++) {
-					rst[i][j] += a[i][k] * b[k][j] % 1000;
-					rst[i][j] %= 1000;
+			
+			int r = 0;
+			int start = 0;
+			int end = n;
+			
+			boolean error = false;
+			
+			for(int i=0;i<p.length;i++) {
+				switch(p[i]) {
+				case 'R':
+					r++;
+					break;
+				case 'D':
+					if(start == end) {
+						sb.append("error\n");
+						error = true;
+					}
+					if(r%2 == 0) {
+						start++;
+					}else {
+						end--;
+					}
+					break;
 				}
+				if(error) break;
+			}
+			if(error) continue;
+			
+			sb.append("[");
+			if(r%2 == 0) {
+				for(int i=start;i<end;i++) {
+					sb.append(arr[i]);
+					if(i == end-1) break;
+					sb.append(",");
+				}
+				sb.append("]\n");
+			}else {
+				for(int i=end-1;i>=start;--i) {
+					if(end-1 < 0) continue;
+					sb.append(arr[i]);
+					if(i == start) break;
+					sb.append(",");
+				}
+				sb.append("]\n");
 			}
 		}
-		
-		return rst;
+		System.out.println(sb.toString());
 	}
 
 }

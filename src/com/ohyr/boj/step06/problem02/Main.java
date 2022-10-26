@@ -1,21 +1,29 @@
 package com.ohyr.boj.step06.problem02;
 
-import java.util.Scanner;
-
 public class Main {
 
-	public static void main(String[] args) {
-		Scanner sc = new Scanner(System.in);
-		
-		int n = sc.nextInt();
-		String ns = sc.next();
-		sc.close();
-		
-		int sum = 0;
-		for(int i=0;i<n;i++) {
-			sum += ns.charAt(i)-'0';
+	public static int d(int n) {
+		int tmp = n;
+		while(tmp > 0) {
+			n += tmp%10;
+			tmp /= 10;
 		}
-		System.out.println(sum);
+		return n;
+	}
+	
+	public static void main(String[] args) {
+		int[] checked = new int[10001];
+		for(int i=1;i<=10000;i++) {
+			int self = d(i);
+			if(self > 10000) continue;
+			checked[d(i)] = 1;
+		}
+		
+		for(int i=1;i<=10000;i++) {
+			if(checked[i] == 0) {
+				System.out.println(i);
+			}
+		}
 	}
 
 }

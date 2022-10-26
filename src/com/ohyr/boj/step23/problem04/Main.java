@@ -2,39 +2,52 @@ package com.ohyr.boj.step23.problem04;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.util.PriorityQueue;
+import java.util.StringTokenizer;
 
 public class Main {
 
 	public static void main(String[] args) throws Exception {
 		BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
-		StringBuilder sb = new StringBuilder();
+		StringTokenizer st = null;
 		
-		int n = Integer.parseInt(in.readLine());
+		st = new StringTokenizer(in.readLine());
+		int n = Integer.parseInt(st.nextToken());
+		int m = Integer.parseInt(st.nextToken());
+		int max = 0;
 		
-		PriorityQueue<Integer> minHeap = new PriorityQueue<>((a, b) -> a - b);
-		PriorityQueue<Integer> maxHeap = new PriorityQueue<>((a, b) -> b - a);
+		int[] trees = new int[n];
 		
+		st = new StringTokenizer(in.readLine());
 		for(int i=0;i<n;i++) {
-			int x = Integer.parseInt(in.readLine());
-			if(minHeap.size() == maxHeap.size()) {
-				if(!minHeap.isEmpty() && x > minHeap.peek()) {
-					maxHeap.add(minHeap.poll());
-					minHeap.add(x);
-				}else {					
-					maxHeap.add(x);
-				}
-			}else {
-				if(!maxHeap.isEmpty() && x < maxHeap.peek()) {
-					minHeap.add(maxHeap.poll());
-					maxHeap.add(x);
-				}else {					
-					minHeap.add(x);
-				}
-			}
-			sb.append(maxHeap.peek()).append("\n");
+			trees[i] = Integer.parseInt(st.nextToken());
+			max = Math.max(max, trees[i]);
 		}
-		System.out.println(sb.toString());
+		
+		int l = 0;
+		int r = max;
+		
+		while(l < r) {
+			int mid = (l + r) / 2;
+			
+			long sum = cutAndGetSum(mid, trees);
+			
+			if(sum >= m) {
+				l = mid + 1;
+			}else {
+				r = mid;
+			}
+		}
+		
+		System.out.println(l - 1);
 	}
-
+	
+	private static long cutAndGetSum(int h, int[] trees) {
+		long sum = 0;
+		
+		for(int tree: trees) {
+			sum += tree > h ? tree - h : 0;
+		}
+		
+		return sum;
+	}
 }

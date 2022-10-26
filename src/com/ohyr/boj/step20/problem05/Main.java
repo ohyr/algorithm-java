@@ -2,59 +2,41 @@ package com.ohyr.boj.step20.problem05;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.util.ArrayDeque;
-import java.util.StringTokenizer;
+import java.util.Stack;
 
 public class Main {
 
 	public static void main(String[] args) throws Exception {
 		BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
 		StringBuilder sb = new StringBuilder();
-		StringTokenizer st = null;
 		
-		ArrayDeque<Integer> dq = new ArrayDeque<>();
+		Stack<Integer> stk = new Stack<>();
 		
 		int n = Integer.parseInt(in.readLine());
+		int k = 1;
 		
 		for(int i=0;i<n;i++) {
-			st = new StringTokenizer(in.readLine());
-			String command = st.nextToken();
-			if("push_front".equals(command)) {
-				dq.offerFirst(Integer.parseInt(st.nextToken()));
-			}else if("push_back".equals(command)) {
-				dq.offerLast(Integer.parseInt(st.nextToken()));
-			}else if("pop_front".equals(command)) {
-				if(dq.isEmpty()) {
-					sb.append("-1").append("\n");
-					continue;
+			int cur = Integer.parseInt(in.readLine());
+			
+			if(k <= cur) {
+				while(k <= cur) {
+					stk.push(k++);
+					sb.append("+").append("\n");
 				}
-				sb.append(dq.pollFirst()).append("\n");
-			}else if("pop_back".equals(command)) {
-				if(dq.isEmpty()) {
-					sb.append("-1").append("\n");
-					continue;
+				stk.pop();
+				sb.append("-").append("\n");
+			}else {
+				if(stk.isEmpty() || (!stk.isEmpty() && stk.peek() < cur)) {
+					System.out.println("NO");
+					return;
 				}
-				sb.append(dq.pollLast()).append("\n");
-			}else if("size".equals(command)) {
-				sb.append(dq.size()).append("\n");
-			}else if("empty".equals(command)) {
-				if(dq.isEmpty()) {
-					sb.append("1").append("\n");
-				}else {
-					sb.append("0").append("\n");
+				
+				while(true) {
+					sb.append("-").append("\n");
+					if(stk.pop() == cur) {
+						break;
+					}
 				}
-			}else if("front".equals(command)) {
-				if(dq.isEmpty()) {
-					sb.append("-1").append("\n");
-					continue;
-				}
-				sb.append(dq.peekFirst()).append("\n");
-			}else if("back".equals(command)) {
-				if(dq.isEmpty()) {
-					sb.append("-1").append("\n");
-					continue;
-				}
-				sb.append(dq.peekLast()).append("\n");
 			}
 		}
 		

@@ -1,32 +1,42 @@
 package com.ohyr.boj.step07.problem05;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.util.StringTokenizer;
+import java.util.Scanner;
 
 public class Main {
 
-	public static void main(String[] args) throws Exception {
-		BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
-		StringBuilder sb = new StringBuilder();
-		StringTokenizer st = null;
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
 		
-		int T = Integer.parseInt(in.readLine());
+		String s = sc.next();
+		sc.close();
 		
-		for(int tc=1;tc<=T;tc++) {
-			st = new StringTokenizer(in.readLine());
-			int h = Integer.parseInt(st.nextToken());
-			int w = Integer.parseInt(st.nextToken());
-			int n = Integer.parseInt(st.nextToken());
-			
-			int xx = (n-1)/h + 1;
-			int yy = (n-1)%h + 1;
-			
-			sb.append(yy);
-			if(xx < 10) sb.append(0);
-			sb.append(xx).append("\n");
+		s = s.toUpperCase();
+		
+		int[] used = new int[26];
+		
+		for(int i=0;i<s.length();i++) {
+			used[s.charAt(i)-'A']++;
 		}
-		System.out.println(sb.toString());
+		
+		int max = 0;
+		int answer = 0;
+		for(int i=0;i<used.length;i++) {
+			if(max < used[i]) {
+				max = used[i];
+				answer = i;
+			}
+		}
+		
+		for(int i=0;i<used.length;i++) {
+			if(max == used[i]) {
+				if(i != answer) {
+					answer = '?'-'A';
+					break;
+				}
+			}
+		}
+		
+		System.out.println((char)(answer+65));
 	}
 
 }

@@ -2,45 +2,44 @@ package com.ohyr.boj.step23.problem03;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.util.Comparator;
-import java.util.PriorityQueue;
+import java.util.StringTokenizer;
 
 public class Main {
 
 	public static void main(String[] args) throws Exception {
 		BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
-		StringBuilder sb = new StringBuilder();
+		StringTokenizer st = null;
 		
-		PriorityQueue<Integer> q = new PriorityQueue<>(new Comparator<Integer>() {
-			@Override
-			public int compare(Integer o1, Integer o2) {
-				if(Math.abs(o1) == Math.abs(o2)) {
-					return o1 - o2;
-				}
-				return Math.abs(o1) - Math.abs(o2);
-			}
-		});
+		st = new StringTokenizer(in.readLine());
+		int k = Integer.parseInt(st.nextToken());
+		int n = Integer.parseInt(st.nextToken());
 		
-		int n = Integer.parseInt(in.readLine());
+		int[] lan = new int[k];
+				
+		for(int i=0;i<k;i++) {
+			lan[i] = Integer.parseInt(in.readLine());
+		}
 		
-		for(int i=0;i<n;i++) {
-			int x = Integer.parseInt(in.readLine());
+		long left = 0;
+		long right = Integer.MAX_VALUE + 1L;
+		long mid = 0;
+		
+		while(left < right) {
+			mid = (left + right)/2;
 			
-			switch(x) {
-			case 0:
-				if(q.isEmpty()) {
-					sb.append("0\n");
-				}else {
-					sb.append(q.poll()).append("\n");
-				}
-				break;
-			default:
-				q.offer(x);
-				break;
+			long sum = 0;
+			for(int i=0;i<k;i++) {
+				sum += lan[i]/mid;
+			}
+			
+			if(sum < n) {
+				right = mid;
+			}else {
+				left = mid+1;
 			}
 		}
 		
-		System.out.println(sb.toString());
+		System.out.println(left-1);
 	}
 
 }

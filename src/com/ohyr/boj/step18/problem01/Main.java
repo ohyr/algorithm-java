@@ -8,30 +8,30 @@ public class Main {
 
 	public static void main(String[] args) throws Exception {
 		BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
+		StringBuilder sb = new StringBuilder();
 		StringTokenizer st = null;
 		
 		st = new StringTokenizer(in.readLine());
 		int n = Integer.parseInt(st.nextToken());
-		int k = Integer.parseInt(st.nextToken());
+		int m = Integer.parseInt(st.nextToken());
 		
-		int[] a = new int[n];
-		
-		for(int i=0;i<n;i++) {
-			a[i] = Integer.parseInt(in.readLine());
+		int[] dp = new int[n+1];
+		st = new StringTokenizer(in.readLine());
+		for(int i=1;i<=n;i++) {
+			dp[i] = dp[i-1] + Integer.parseInt(st.nextToken());
 		}
 		
-		int answer = 0;
-		
-		for(int i=n-1;i>=0;--i) {
-			int coinNum = k/a[i];
+		for(int i=0;i<m;i++) {
+			st = new StringTokenizer(in.readLine());
+			int start = Integer.parseInt(st.nextToken());
+			int end = Integer.parseInt(st.nextToken());
 			
-			if(coinNum == 0) continue;
+			int answer = dp[end] - dp[start-1];
 			
-			answer += coinNum;
-			k -= coinNum*a[i];
+			sb.append(answer).append("\n");
 		}
 		
-		System.out.println(answer);
+		System.out.println(sb.toString());
 	}
 
 }

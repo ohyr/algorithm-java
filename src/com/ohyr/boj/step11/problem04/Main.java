@@ -2,60 +2,71 @@ package com.ohyr.boj.step11.problem04;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.util.Arrays;
+import java.util.StringTokenizer;
 
 public class Main {
 
+	static int N;
+	static int K;
+	static int answer;
+	static int[] tmp;
+	
 	public static void main(String[] args) throws Exception {
 		BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
-		StringBuilder sb = new StringBuilder();
+		StringTokenizer st = null;
 		
-		int n = Integer.parseInt(in.readLine());
-		int[] num = new int[n];
-		for(int i=0;i<n;i++) {
-			num[i] = Integer.parseInt(in.readLine());
+		st = new StringTokenizer(in.readLine());
+		N = Integer.parseInt(st.nextToken());
+		K = Integer.parseInt(st.nextToken());
+		answer = -1;
+		
+		int[] A = new int[N];
+		st = new StringTokenizer(in.readLine());
+		for(int i=0;i<N;i++) {
+			A[i] = Integer.parseInt(st.nextToken());
 		}
+		tmp = new int[N];
 		
-		long sum = 0;
-		for(int i=0;i<n;i++) {
-			sum += num[i];
+		mergeSort(A, 0, N - 1);
+		
+		System.out.println(answer);
+	}
+	
+	public static void mergeSort(int[] A, int p, int r) {
+		if(K <= 0) return;
+		if(p < r) {
+			int q = (p + r) / 2;
+			mergeSort(A, p, q);
+			mergeSort(A, q+1, r);
+			merge(A, p, q, r);
 		}
-		sb.append(Math.round((double)sum/n)).append("\n");
-		
-		Arrays.sort(num);
-		sb.append(num[n/2]).append("\n");
-		
-		int[] used = new int[8001];
-		for(int i=0;i<n;i++) {
-			int cur = num[i] + 4000;
-			used[cur]++;
-		}
-		
-		int max = 0;
-		int many = 0;
-		int ans = 0;
-		int cnt = 1;
-		for(int i=0;i<8001;i++) {
-			if(used[i] > max) {
-				max = used[i];
-				many = i;
-				cnt = 1;
-			}else if(used[i] == max && max != 0) {
-				if(cnt == 1) {
-					ans = i;
-				}
-				cnt++;
+	}
+	
+	public static void merge(int[] A, int p, int q, int r) {
+		int i = p;
+		int j = q + 1;
+		int t = 0;
+		while(i <= q && j <= r) {
+			if(A[i] <= A[j]) {
+				tmp[t++] = A[i++];
+			}else {
+				tmp[t++] = A[j++];
 			}
 		}
-		if(cnt == 1) {
-			sb.append(many-4000).append("\n");
-		}else {			
-			sb.append(ans-4000).append("\n");
+		while(i <= q) {
+			tmp[t++] = A[i++];
 		}
-		
-		sb.append(num[n-1] - num[0]).append("\n");
-		
-		System.out.println(sb.toString());
+		while(j <= r) {
+			tmp[t++] = A[j++];
+		}
+		i = p;
+		t = 0;
+		while(i <= r) {
+			if(--K == 0) {
+				answer = tmp[t];
+			}
+			A[i++] = tmp[t++];
+		}
 	}
 
 }

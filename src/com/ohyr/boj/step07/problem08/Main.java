@@ -1,22 +1,22 @@
 package com.ohyr.boj.step07.problem08;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.math.BigInteger;
-import java.util.StringTokenizer;
+import java.util.Scanner;
 
 public class Main {
 
-	public static void main(String[] args) throws Exception {
-		BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
-		StringTokenizer st = null;
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
 		
-		st = new StringTokenizer(in.readLine());
+		int[] alpha = {3,3,3,4,4,4,5,5,5,6,6,6,7,7,7,8,8,8,8,9,9,9,10,10,10,10};
 		
-		BigInteger A = new BigInteger(st.nextToken());
-		BigInteger B = new BigInteger(st.nextToken());
+		String word = sc.next();
+		sc.close();
 		
-		System.out.println(A.add(B));
+		int sum = 0;
+		for(int i=0;i<word.length();i++) {
+			sum += alpha[word.charAt(i)-'A'];
+		}
+		System.out.println(sum);
 	}
 
 }

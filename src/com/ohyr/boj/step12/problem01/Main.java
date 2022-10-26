@@ -2,34 +2,38 @@ package com.ohyr.boj.step12.problem01;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.util.HashSet;
-import java.util.Set;
 import java.util.StringTokenizer;
 
 public class Main {
 
 	public static void main(String[] args) throws Exception {
 		BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
-		StringBuilder sb = new StringBuilder();
 		StringTokenizer st = null;
-
-		Set<Integer> set = new HashSet<>();
-
-		int n = Integer.parseInt(in.readLine());		
+		
+		st = new StringTokenizer(in.readLine());
+		int n = Integer.parseInt(st.nextToken());
+		int m = Integer.parseInt(st.nextToken());
+		
+		int[] cards = new int[n];
 		st = new StringTokenizer(in.readLine());
 		for(int i=0;i<n;i++) {
-			int num = Integer.parseInt(st.nextToken());
-			set.add(num);
+			cards[i] = Integer.parseInt(st.nextToken());
 		}
-
-		int m = Integer.parseInt(in.readLine());
-		st = new StringTokenizer(in.readLine());
-		for(int i=0;i<m;i++) {
-			int num = Integer.parseInt(st.nextToken());
-			sb.append(set.contains(num) ? 1 : 0).append(" ");
+		
+		int answer = 0;
+		
+		for(int i=0;i<n;i++) {
+			for(int j=i+1;j<n;j++) {
+				for(int k=j+1;k<n;k++) {
+					int sum = cards[i] + cards[j] + cards[k];
+					if(sum <= m) {
+						answer = Math.max(answer, sum);
+					}
+				}
+			}
 		}
-
-		System.out.println(sb.toString());
+		
+		System.out.println(answer);
 	}
 
 }

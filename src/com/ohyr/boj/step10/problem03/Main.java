@@ -2,34 +2,26 @@ package com.ohyr.boj.step10.problem03;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.util.StringTokenizer;
+import java.util.Arrays;
 
 public class Main {
 
 	public static void main(String[] args) throws Exception {
 		BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
 		StringBuilder sb = new StringBuilder();
-		StringTokenizer st = null;
 		
 		int n = Integer.parseInt(in.readLine());
 		
-		int[] w = new int[n];
-		int[] h = new int[n];
+		int[] count = new int[10001];
 		
 		for(int i=0;i<n;i++) {
-			st = new StringTokenizer(in.readLine());
-			w[i] = Integer.parseInt(st.nextToken());
-			h[i] = Integer.parseInt(st.nextToken());
+			count[Integer.parseInt(in.readLine())] += 1;
 		}
 		
-		for(int i=0;i<n;i++) {
-			int cnt = 0;
-			for(int j=0;j<n;j++) {
-				if(w[i] < w[j] && h[i] < h[j]) {
-					cnt++;
-				}
+		for(int i=1;i<=10000;i++) {
+			for(int j=0;j<count[i];j++) {
+				sb.append(i).append("\n");
 			}
-			sb.append(1+cnt).append(" ");
 		}
 		
 		System.out.println(sb.toString());

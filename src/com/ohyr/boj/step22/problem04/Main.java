@@ -5,49 +5,32 @@ import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
 public class Main {
-
+	
 	public static void main(String[] args) throws Exception {
 		BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
 		StringTokenizer st = null;
 		
 		st = new StringTokenizer(in.readLine());
-		int n = Integer.parseInt(st.nextToken());
-		int m = Integer.parseInt(st.nextToken());
-		int max = 0;
+		long a = Long.parseLong(st.nextToken());
+		long b = Long.parseLong(st.nextToken());
+		long c = Long.parseLong(st.nextToken());
 		
-		int[] trees = new int[n];
+		long answer = pow(a, b, c);
 		
-		st = new StringTokenizer(in.readLine());
-		for(int i=0;i<n;i++) {
-			trees[i] = Integer.parseInt(st.nextToken());
-			max = Math.max(max, trees[i]);
-		}
-		
-		int l = 0;
-		int r = max;
-		
-		while(l < r) {
-			int mid = (l + r) / 2;
-			
-			long sum = cutAndGetSum(mid, trees);
-			
-			if(sum >= m) {
-				l = mid + 1;
-			}else {
-				r = mid;
-			}
-		}
-		
-		System.out.println(l - 1);
+		System.out.println(answer);
 	}
-	
-	private static long cutAndGetSum(int h, int[] trees) {
-		long sum = 0;
+
+	public static long pow(long a, long b, long c) {
+		long extra = 1;
 		
-		for(int tree: trees) {
-			sum += tree > h ? tree - h : 0;
+		while(b > 1) {
+			if(b % 2 == 1) {
+				extra = (extra * a) % c;
+			}
+			a = (a * a) % c;
+			b /= 2;
 		}
 		
-		return sum;
+		return a * extra % c;
 	}
 }

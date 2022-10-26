@@ -2,64 +2,60 @@ package com.ohyr.boj.step10.problem04;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.util.StringTokenizer;
+import java.util.Arrays;
 
 public class Main {
 
 	public static void main(String[] args) throws Exception {
 		BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
-		StringTokenizer st = null;
+		StringBuilder sb = new StringBuilder();
 		
-		st = new StringTokenizer(in.readLine());
-		int n = Integer.parseInt(st.nextToken());
-		int m = Integer.parseInt(st.nextToken());
-		
-		int[][] board = new int[n][m];
-		
+		int n = Integer.parseInt(in.readLine());
+		int[] num = new int[n];
 		for(int i=0;i<n;i++) {
-			char[] rL = in.readLine().toCharArray();
-			for(int j=0;j<m;j++) {
-				if(rL[j] == 'W'){
-					board[i][j] = 1;
-				}
-			}
+			num[i] = Integer.parseInt(in.readLine());
 		}
 		
-		int answer = Integer.MAX_VALUE;
-		int sum = 0;
-		int r = 0;
+		long sum = 0;
+		for(int i=0;i<n;i++) {
+			sum += num[i];
+		}
+		sb.append(Math.round((double)sum/n)).append("\n");
 		
-		for(int i=0;i<n-7;i++) {
-			for(int j=0;j<m-7;j++) {
-				sum = 0;
-				r = 0;
-				for(int x=i;x<i+8;x++) {
-					r++;
-					for(int y=j;y<j+8;y++) {
-						if(board[x][y] != r%2) {
-							sum++;
-						}
-						r++;
-					}
-				}
-				answer = Math.min(answer, sum);
-				
-				sum = 0;
-				r = 1;
-				for(int x=i;x<i+8;x++) {
-					r++;
-					for(int y=j;y<j+8;y++) {
-						if(board[x][y] != r%2) {
-							sum++;
-						}
-						r++;
-					}
-				}
-				answer = Math.min(answer, sum);
-			}
+		Arrays.sort(num);
+		sb.append(num[n/2]).append("\n");
+		
+		int[] used = new int[8001];
+		for(int i=0;i<n;i++) {
+			int cur = num[i] + 4000;
+			used[cur]++;
 		}
 		
-		System.out.println(answer);
+		int max = 0;
+		int many = 0;
+		int ans = 0;
+		int cnt = 1;
+		for(int i=0;i<8001;i++) {
+			if(used[i] > max) {
+				max = used[i];
+				many = i;
+				cnt = 1;
+			}else if(used[i] == max && max != 0) {
+				if(cnt == 1) {
+					ans = i;
+				}
+				cnt++;
+			}
+		}
+		if(cnt == 1) {
+			sb.append(many-4000).append("\n");
+		}else {			
+			sb.append(ans-4000).append("\n");
+		}
+		
+		sb.append(num[n-1] - num[0]).append("\n");
+		
+		System.out.println(sb.toString());
 	}
 
 }

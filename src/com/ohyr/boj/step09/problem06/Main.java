@@ -2,35 +2,42 @@ package com.ohyr.boj.step09.problem06;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.util.Arrays;
 
 public class Main {
 
-	public static StringBuilder sb;
-	
 	public static void main(String[] args) throws Exception {
 		BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
-		int n = Integer.parseInt(in.readLine());
+		StringBuilder sb = new StringBuilder();
 		
-		sb = new StringBuilder();
-		
-		sb.append((1<<n) - 1).append("\n");
-		
-		hanoi(n, 1, 2, 3);
-		
-		System.out.println(sb.toString());
-	}
-	
-	private static void hanoi(int n, int a, int b, int c) {
-		if(n == 1) {
-			sb.append(a).append(" ").append(c).append("\n");
-			return;
+		boolean[] isPrime = new boolean[10001];
+		Arrays.fill(isPrime, true);
+		isPrime[0] = false;
+		isPrime[1] = false;
+		for(int i=2;i<=10000;i++) {
+			if(!isPrime[i]) continue;
+			for(int j=2;i*j<=10000;j++) {
+				isPrime[i*j] = false;
+			}
 		}
 		
-		hanoi(n - 1, a, c, b);
+		int T = Integer.parseInt(in.readLine());
 		
-		sb.append(a).append(" ").append(c).append("\n");
+		for(int tc=1;tc<=T;tc++) {
+			int n = Integer.parseInt(in.readLine());
+			int a = n / 2;
+			int b = n / 2;
+			while(a > 0 && b < n) {
+				if(isPrime[a] && isPrime[b]) {
+					sb.append(a).append(" ").append(b).append("\n");
+					break;
+				}
+				a--;
+				b++;
+			}
+		}
 		
-		hanoi(n - 1, b, a, c);
+		System.out.println(sb.toString());
 	}
 
 }

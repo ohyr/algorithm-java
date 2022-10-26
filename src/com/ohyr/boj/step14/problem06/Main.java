@@ -11,25 +11,40 @@ public class Main {
 		StringBuilder sb = new StringBuilder();
 		StringTokenizer st = null;
 		
-		int n = Integer.parseInt(in.readLine());
-		st = new StringTokenizer(in.readLine());
-		int first = Integer.parseInt(st.nextToken());
-		for(int i=1;i<n;i++) {
-			int r = Integer.parseInt(st.nextToken());
+		int T = Integer.parseInt(in.readLine());
+		for(int tc=1;tc<=T;tc++) {
+			st = new StringTokenizer(in.readLine());
+			int x1 = Integer.parseInt(st.nextToken());
+			int y1 = Integer.parseInt(st.nextToken());
+			int r1 = Integer.parseInt(st.nextToken());
+			int x2 = Integer.parseInt(st.nextToken());
+			int y2 = Integer.parseInt(st.nextToken());
+			int r2 = Integer.parseInt(st.nextToken());
 			
-			int g = gcd(first, r);
-			sb.append(first/g).append("/").append(r/g).append("\n");
+			int answer = 0;
+			
+			int dist = (x1-x2)*(x1-x2) + (y1-y2)*(y1-y2);
+			int pr = (r1 + r2)*(r1 + r2);
+			int mr = (r1 - r2)*(r1 - r2);
+			
+			if(dist == pr) {
+				answer = 1;
+			}else if(dist < pr) {
+				if(dist == mr) {
+					answer = 1;
+				}else if(dist > mr) {
+					answer = 2;
+				}
+			}
+			
+			if(x1 == x2 && y1 == y2 && r1 == r2) {
+				answer = -1;
+			}
+			
+			sb.append(answer).append("\n");
 		}
 		
 		System.out.println(sb.toString());
-	}
-
-	public static int gcd(int a, int b) {
-		int r = a % b;
-		if(r == 0) {
-			return b;
-		}
-		return gcd(b, r);
 	}
 
 }

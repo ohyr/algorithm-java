@@ -2,36 +2,35 @@ package com.ohyr.boj.step11.problem06;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.util.Arrays;
-import java.util.StringTokenizer;
 
 public class Main {
 
+	public static StringBuilder sb;
+	
 	public static void main(String[] args) throws Exception {
 		BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
-		StringBuilder sb = new StringBuilder();
-		StringTokenizer st = null;
-		
 		int n = Integer.parseInt(in.readLine());
 		
-		int[][] xy = new int[n][2];
+		sb = new StringBuilder();
 		
-		for(int i=0;i<n;i++) {
-			st = new StringTokenizer(in.readLine());
-			xy[i][0] = Integer.parseInt(st.nextToken());
-			xy[i][1] = Integer.parseInt(st.nextToken());
-		}
+		sb.append((1<<n) - 1).append("\n");
 		
-		Arrays.sort(xy, (a, b) -> (a[0] != b[0] ? a[0] - b[0] : a[1] - b[1]));
-		
-		for(int i=0;i<n;i++) {
-			for(int j=0;j<2;j++) {
-				sb.append(xy[i][j]).append(" ");
-			}
-			sb.append("\n");
-		}
+		hanoi(n, 1, 2, 3);
 		
 		System.out.println(sb.toString());
+	}
+	
+	private static void hanoi(int n, int a, int b, int c) {
+		if(n == 1) {
+			sb.append(a).append(" ").append(c).append("\n");
+			return;
+		}
+		
+		hanoi(n - 1, a, c, b);
+		
+		sb.append(a).append(" ").append(c).append("\n");
+		
+		hanoi(n - 1, b, a, c);
 	}
 
 }

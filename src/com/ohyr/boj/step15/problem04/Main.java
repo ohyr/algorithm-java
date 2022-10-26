@@ -6,37 +6,27 @@ import java.util.StringTokenizer;
 
 public class Main {
 
-	public static StringBuilder sb;
-	public static int[] idx;
-	
 	public static void main(String[] args) throws Exception {
 		BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
+		StringBuilder sb = new StringBuilder();
 		StringTokenizer st = null;
 		
-		st = new StringTokenizer(in.readLine());
-		int n = Integer.parseInt(st.nextToken());
-		int m = Integer.parseInt(st.nextToken());
-		
-		sb = new StringBuilder();
-		
-		idx = new int[m];
-		perm(0, 0, n, m);
-		
+		int T = Integer.parseInt(in.readLine());
+		for(int tc=1;tc<=T;tc++) {
+			st = new StringTokenizer(in.readLine());
+			int a = Integer.parseInt(st.nextToken());
+			int b = Integer.parseInt(st.nextToken());
+			sb.append(a*b/gcd(a, b)).append("\n");
+		}
 		System.out.println(sb.toString());
 	}
-
-	private static void perm(int cnt, int start, int n, int m) {
-		if(cnt == m) {
-			for(int i=0;i<m;i++) {
-				sb.append(idx[i]).append(" ");
-			}
-			sb.append("\n");
-			return;
+	
+	public static int gcd(int a, int b) {
+		int r = a % b;
+		if(r == 0) {
+			return b;
 		}
-		for(int i=start;i<n;i++) {
-			idx[cnt] = i+1;
-			perm(cnt+1, i, n, m);
-		}
+		return gcd(b, r);
 	}
 
 }

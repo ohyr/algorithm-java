@@ -2,35 +2,51 @@ package com.ohyr.boj.step21.problem04;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.util.LinkedList;
+import java.util.PriorityQueue;
+import java.util.Queue;
 import java.util.StringTokenizer;
 
 public class Main {
-	
+
 	public static void main(String[] args) throws Exception {
 		BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
+		StringBuilder sb = new StringBuilder();
 		StringTokenizer st = null;
 		
-		st = new StringTokenizer(in.readLine());
-		long a = Long.parseLong(st.nextToken());
-		long b = Long.parseLong(st.nextToken());
-		long c = Long.parseLong(st.nextToken());
+		int T = Integer.parseInt(in.readLine());
 		
-		long answer = pow(a, b, c);
-		
-		System.out.println(answer);
-	}
-
-	public static long pow(long a, long b, long c) {
-		long extra = 1;
-		
-		while(b > 1) {
-			if(b % 2 == 1) {
-				extra = (extra * a) % c;
+		for(int tc=1;tc<=T;tc++) {
+			st = new StringTokenizer(in.readLine());
+			int n = Integer.parseInt(st.nextToken());
+			int m = Integer.parseInt(st.nextToken());
+			
+			PriorityQueue<Integer> pq = new PriorityQueue<>((a,b) -> b-a);
+			Queue<int[]> q = new LinkedList<>();
+			st = new StringTokenizer(in.readLine());
+			for(int i=0;i<n;i++) {
+				int pr = Integer.parseInt(st.nextToken());
+				q.offer(new int[] {pr, i});
+				pq.offer(pr);
 			}
-			a = (a * a) % c;
-			b /= 2;
+			
+			int cnt = 1;
+			while(!q.isEmpty()) {
+				if(q.peek()[0] == pq.peek()) {
+					if(q.peek()[1] == m) {
+						sb.append(cnt).append("\n");
+						break;
+					}
+					q.poll();
+					pq.poll();
+					cnt++;
+				}else {
+					q.offer(q.poll());
+				}
+			}
 		}
 		
-		return a * extra % c;
+		System.out.println(sb.toString());
 	}
+
 }

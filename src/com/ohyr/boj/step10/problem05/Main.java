@@ -2,29 +2,22 @@ package com.ohyr.boj.step10.problem05;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.util.Arrays;
 
 public class Main {
 
 	public static void main(String[] args) throws Exception {
 		BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
+		StringBuilder sb = new StringBuilder();
 		
-		int n = Integer.parseInt(in.readLine());
+		char[] n = in.readLine().toCharArray();
+		Arrays.sort(n);
 		
-		int cnt = 0;
-		
-		String answer = "";
-		
-		for(int i=0;i<100000000;i++) {
-			if(Integer.toString(i).contains("666")) {
-				cnt++;
-				if(n == cnt) {
-					answer = Integer.toString(i);
-					break;
-				}
-			}
+		for(int i=n.length-1;i>=0;i--) {
+			sb.append(n[i]);
 		}
 		
-		System.out.println(answer);
+		System.out.println(sb.toString());
 	}
 
 }

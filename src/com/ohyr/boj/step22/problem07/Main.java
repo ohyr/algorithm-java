@@ -8,38 +8,63 @@ public class Main {
 
 	public static void main(String[] args) throws Exception {
 		BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
+		StringBuilder sb = new StringBuilder();
 		StringTokenizer st = null;
 		
-		int n = Integer.parseInt(in.readLine());
-		int[] a = new int[n];
 		st = new StringTokenizer(in.readLine());
+		int n = Integer.parseInt(st.nextToken());
+		long b = Long.parseLong(st.nextToken());
+		
+		int[][] m = new int[n][n];
 		for(int i=0;i<n;i++) {
-			a[i] = Integer.parseInt(st.nextToken());
+			st = new StringTokenizer(in.readLine());
+			for(int j=0;j<n;j++) {
+				m[i][j] = Integer.parseInt(st.nextToken()) % 1000;
+			}
 		}
 		
-		int cnt = 0;
-		int[] LIS = new int[n];
+		int[][] answer = matrix(n, b, m);
 		for(int i=0;i<n;i++) {
-			int idx = lowerBound(0, cnt, LIS, a[i]);
-			if(idx >= cnt) {
-				LIS[cnt++] = a[i];
-			}else {
-				LIS[idx] = a[i];
+			for(int j=0;j<n;j++) {
+				sb.append(answer[i][j]).append(" ");
 			}
+			sb.append("\n");
 		}
-		System.out.println(cnt);
+		
+		System.out.println(sb.toString());
 	}
 
-	public static int lowerBound(int l, int r, int[] data, int target) {
-		while(l < r) {
-			int mid = (l + r) / 2;
-			
-			if(data[mid] < target) {
-				l = mid + 1;
-			}else {
-				r = mid;
+	private static int[][] matrix(int n, long b, int[][] m) {
+		int[][] rst = new int[n][n];
+		for(int i=0;i<n;i++) {
+			rst[i][i] = 1;
+		}
+		
+		while(b > 0) {
+			if(b%2 == 1) {
+				rst = mul(rst, m);
+			}
+			b /= 2;
+			m = mul(m, m);
+		}
+		
+		return rst;
+	}
+
+	private static int[][] mul(int[][] a, int[][] b) {
+		int n = a.length;
+		int[][] rst = new int[n][n];
+		
+		for(int i=0;i<n;i++) {
+			for(int j=0;j<n;j++) {
+				for(int k=0;k<n;k++) {
+					rst[i][j] += a[i][k] * b[k][j] % 1000;
+					rst[i][j] %= 1000;
+				}
 			}
 		}
-		return r;
+		
+		return rst;
 	}
+
 }
