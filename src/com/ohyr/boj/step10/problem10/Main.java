@@ -2,40 +2,31 @@ package com.ohyr.boj.step10.problem10;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
-import java.util.StringTokenizer;
+import java.util.Arrays;
 
 public class Main {
 
 	public static void main(String[] args) throws Exception {
 		BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
 		StringBuilder sb = new StringBuilder();
-		StringTokenizer st = null;
 		
 		int n = Integer.parseInt(in.readLine());
 		
-		int[] x = new int[n];
-		Set<Integer> set = new HashSet<>();
-		
-		st = new StringTokenizer(in.readLine());
-		for(int i=0;i<n;i++) {
-			x[i] = Integer.parseInt(st.nextToken());
-			set.add(x[i]);
-		}
-		
-		int[] tmp = set.stream().sorted().mapToInt(Integer::intValue).toArray();
-		Map<Integer, Integer> xMap = new HashMap<>();
-		for(int i=0;i<set.size();i++) {
-			xMap.put(tmp[i], i);
-		}
+		String[] words = new String[n];
 		
 		for(int i=0;i<n;i++) {
-			sb.append(xMap.get(x[i])).append(" ");
+			words[i] = in.readLine();
 		}
 		
+		Arrays.sort(words, (a,b) -> a.length() == b.length() ? a.compareTo(b) : a.length() - b.length());
+		
+		String prev = words[0];
+		sb.append(words[0]).append("\n");
+		for(int i=1;i<n;i++) {
+			if(prev.equals(words[i])) continue;
+			sb.append(words[i]).append("\n");
+			prev = words[i];
+		}
 		System.out.println(sb.toString());
 	}
 

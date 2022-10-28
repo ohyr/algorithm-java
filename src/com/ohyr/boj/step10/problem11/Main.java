@@ -1,4 +1,4 @@
-package com.ohyr.boj.step10.problem09;
+package com.ohyr.boj.step10.problem11;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -14,21 +14,29 @@ public class Main {
 		
 		int n = Integer.parseInt(in.readLine());
 		
-		int[][] xy = new int[n][2];
+		class OJ {
+			int age;
+			String name;
+			OJ(int age, String name){
+				this.age = age;
+				this.name = name;
+			}
+		}
+		
+		OJ[] oj = new OJ[n];
 		
 		for(int i=0;i<n;i++) {
 			st = new StringTokenizer(in.readLine());
-			xy[i][0] = Integer.parseInt(st.nextToken());
-			xy[i][1] = Integer.parseInt(st.nextToken());
+			int age = Integer.parseInt(st.nextToken());
+			String name = st.nextToken();
+			
+			oj[i] = new OJ(age, name);
 		}
 		
-		Arrays.sort(xy, (a, b) -> (a[1] != b[1] ? a[1] - b[1] : a[0] - b[0]));
+		Arrays.sort(oj, (a, b) -> (a.age - b.age));
 		
 		for(int i=0;i<n;i++) {
-			for(int j=0;j<2;j++) {
-				sb.append(xy[i][j]).append(" ");
-			}
-			sb.append("\n");
+			sb.append(oj[i].age).append(" ").append(oj[i].name).append("\n");
 		}
 		
 		System.out.println(sb.toString());
