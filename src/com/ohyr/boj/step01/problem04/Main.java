@@ -1,13 +1,15 @@
 package com.ohyr.boj.step01.problem04;
 
+import java.util.Scanner;
+
 public class Main {
 
 	public static void main(String[] args) {
-		System.out.println("|\\_/|");
-		System.out.println("|q p|   /}");
-		System.out.println("( 0 )\"\"\"\\");
-		System.out.println("|\"^\"`    |");
-		System.out.println("||_/=\\\\__|");
+		Scanner sc = new Scanner(System.in);
+		int a = sc.nextInt();
+		int b = sc.nextInt();
+		System.out.println(a*b);
+		sc.close();
 	}
 
 }
