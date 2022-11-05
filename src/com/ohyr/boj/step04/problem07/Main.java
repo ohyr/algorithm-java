@@ -7,28 +7,24 @@ public class Main {
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
 		
-		int T = sc.nextInt();
+		int n = sc.nextInt();
 		
-		for(int tc=0;tc<T;tc++) {
-			int n = sc.nextInt();
-			
-			int[] scores = new int[n];
-			int sum = 0;
-			for(int i=0;i<n;i++) {
-				int k = sc.nextInt();
-				scores[i] = k;
-				sum += scores[i];
-			}
-			
-			double avg = (double)sum/n;
-			int stu = 0;
-			for(int i=0;i<n;i++) {
-				if(avg < scores[i]) {
-					stu++;
-				}
-			}
-			System.out.printf("%.3f%%%n", (double)stu*100/n);
+		double[] scores = new double[n];
+		
+		int max = 0;
+		for(int i=0;i<n;i++) {
+			int k = sc.nextInt();
+			scores[i] = k;
+			max = Math.max(max, k);
 		}
+		
+		double sum = 0;
+		for(int i=0;i<n;i++) {
+			scores[i] = scores[i]/max*100;
+			sum += scores[i];
+		}
+		
+		System.out.println(sum/n);
 		sc.close();
 	}
 

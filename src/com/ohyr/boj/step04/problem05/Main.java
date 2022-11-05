@@ -7,25 +7,23 @@ public class Main {
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
 		
-		int n = sc.nextInt();
-		
-		double[] scores = new double[n];
-		
-		int max = 0;
-		for(int i=0;i<n;i++) {
-			int k = sc.nextInt();
-			scores[i] = k;
-			max = Math.max(max, k);
-		}
-		
-		double sum = 0;
-		for(int i=0;i<n;i++) {
-			scores[i] = scores[i]/max*100;
-			sum += scores[i];
-		}
-		
-		System.out.println(sum/n);
+		int a = sc.nextInt();
+		int b = sc.nextInt();
+		int c = sc.nextInt();
 		sc.close();
+		
+		int n = a*b*c;
+		
+		int[] used = new int[10];
+		
+		while(n > 0) {
+			used[n%10]++;
+			n /= 10;
+		}
+		
+		for(int i=0;i<10;i++) {
+			System.out.println(used[i]);
+		}
 	}
 
 }

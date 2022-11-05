@@ -7,23 +7,22 @@ public class Main {
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
 		
-		int T = sc.nextInt();
+		int[] used = new int[42];
 		
-		for(int tc=1;tc<=T;tc++) {
-			String prob = sc.next();
-			
-			int answer = 0;
-			int s = 0;
-			for(int i=0;i<prob.length();i++) {
-				if(prob.charAt(i) == 'O') {
-					answer += ++s;
-				}else {
-					s = 0;
-				}
-			}
-			System.out.println(answer);
-			sc.close();
+		for(int i=0;i<10;i++) {
+			int k = sc.nextInt();
+			used[k%42] = 1;
 		}
+		
+		int answer = 0;
+		for(int i=0;i<42;i++) {
+			if(used[i] == 1) {
+				answer++;
+			}
+		}
+		
+		System.out.println(answer);
+		sc.close();
 	}
 
 }
