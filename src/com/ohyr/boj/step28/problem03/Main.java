@@ -1,4 +1,4 @@
-package com.ohyr.boj.step28.problem13549;
+package com.ohyr.boj.step28.problem03;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
