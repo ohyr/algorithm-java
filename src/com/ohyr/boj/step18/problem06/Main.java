@@ -42,8 +42,8 @@ public class Main {
 		int[][] wbSum = new int[n+1][m+1];
 		for(int i=1;i<=n;i++) {
 			for(int j=1;j<=m;j++) {
-				bwSum[i][j] += bw[i-1][j-1] + bwSum[i-1][j] + bwSum[i][j-1] - bwSum[i-1][j-1];
-				wbSum[i][j] += wb[i-1][j-1] + wbSum[i-1][j] + wbSum[i][j-1] - wbSum[i-1][j-1];
+				bwSum[i][j] = bw[i-1][j-1] + bwSum[i-1][j] + bwSum[i][j-1] - bwSum[i-1][j-1];
+				wbSum[i][j] = wb[i-1][j-1] + wbSum[i-1][j] + wbSum[i][j-1] - wbSum[i-1][j-1];
 			}
 		}
 		
